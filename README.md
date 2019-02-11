@@ -4,7 +4,7 @@
 ## 基础类型
 ### 声明类型
 
- ```
+```
     let a: boolean = false;
     let num: number = 1;
     let arr: number[] = [1,2,3];
@@ -14,16 +14,16 @@
     function d(): void {
         console.log('void表示没有任意类型，当函数没有返回值时一般设置为void')
     }
- ```
+```
 ### 类型断言
 当你确切了解某值详细信息，可以使用类型断言告诉编译器，编译阶段会假设你已经确切了必须的检查
 两种形式 尖括号法和as语法，两种形式等价，使用哪个全凭喜好，推荐使用as语法
 
-    ```
+```
     let someValue: any = "this is a string";
     let strLength: number = (<string>someValue).length;//尖括号法
     let strLength: number = (someValue as string).length;//as法
-    ```
+```
 
 ## 接口
 ### interface
@@ -60,7 +60,27 @@ function createSquare(config: SquareConfig){
 
 let mySquare = createSquare({color: "black"});
 ```
-
+### 函数类型
+接口可以定义为函数类型，如一下例子a接口定义为number类型，my函数必须返回number类型，否则报错
+```
+interface a{
+    (b:string,c:string): number;
+}
+let my:a;
+my = function(b:string,c:string){
+    return b.length+c.length;
+}
+```
+函数类型的类型检查，函数的参数名不需要与接口的相匹配
+```
+interface a{
+    (b:string,c:string): number;
+}
+let my:a;
+my=function(a:string,d:string){
+    return a.length+d.length;
+}
+```
 ### 只读属性
 赋值后 x再也不能改变，interface弥补const声明对象中，对象的可改变。
 ```
@@ -70,7 +90,9 @@ interface Point {
 let a:Point = {x:1};
 ```
 ts具有ReadonlyArray<T>类型，可确保数组创建后再也不能修改
+
 ```
 let a: ReadonlyArray<number> = [1,2,3];
 a[0]=2// error!
 ```
+
